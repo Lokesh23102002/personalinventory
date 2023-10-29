@@ -122,7 +122,12 @@ class _MyHomePageState extends State<MyHomePage> {
 // Below class is the card that contains the information about the inventory item
 // like image,name,description,etc. and category of the item
 class Itemdescriptioncard extends StatefulWidget {
-  Itemdescriptioncard({super.key, required this.item, required this.sstate});
+  Itemdescriptioncard({
+    super.key,
+    required this.item,
+    required this.sstate,
+  });
+
   final VoidCallback sstate;
   InventoryItem item;
 
@@ -139,18 +144,30 @@ class _ItemdescriptioncardState extends State<Itemdescriptioncard> {
           // IT is th widget to show image of the item
           Padding(
             padding: EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20), // Image border
-              child: SizedBox.fromSize(
-                size: Size.fromRadius(48), // Image radius
-                child: Image.file(File(widget.item.image),
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.fill,
-                    errorBuilder: (context, error, stackTrace) => const Text(
-                          'Some errors occurred!',
-                          style: TextStyle(fontSize: 20),
-                        )),
+            child: InkWell(
+              onLongPress: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(widget.item.name),
+                        content: Image.file(File(widget.item.image)),
+                      );
+                    });
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20), // Image border
+                child: SizedBox.fromSize(
+                    size: Size.fromRadius(48), // Image radius
+                    child: Image.file(File(widget.item.image),
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Text(
+                              'Some errors occurred!',
+                              style: TextStyle(fontSize: 20),
+                            ))),
               ),
             ),
           ),
@@ -252,7 +269,7 @@ class mainbody extends StatelessWidget {
                 }
                 return SizedBox();
               },
-              itemCount: snapshot.data?.length ?? 20);
+              itemCount: snapshot.data?.length ?? 2);
         } else {
           return const Center(child: CircularProgressIndicator());
         }
