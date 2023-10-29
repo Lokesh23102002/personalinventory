@@ -287,63 +287,6 @@ class _AddItemFormState extends State<AddItemForm> {
           )
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   // When the user presses the button, show an alert dialog containing
-      //   // the text that the user has entered into the text field.
-      //   onPressed: () {
-      //     showDialog(
-      //       context: context,
-      //       builder: (context) {
-      //         return AlertDialog(
-      //             // Retrieve the text the that user has entered by using the
-      //             // TextEditingController.
-      //             content: Column(
-      //           // crossAxisAlignment: CrossAxisAlignment.min,A
-      //           mainAxisSize: MainAxisSize.min,
-      //           children: <Widget>[
-      //             Text(
-      //               (item.text == "")
-      //                   ? 'You typed nothing!'
-      //                   : 'You typed ${item.text.toString()}',
-      //               style: const TextStyle(
-      //                 fontSize: 20,
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //             ),
-      //             Text(
-      //               (category.text == "")
-      //                   ? 'You typed nothing!'
-      //                   : 'You typed ${category.text.toString()}',
-      //               style: const TextStyle(
-      //                 fontSize: 20,
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //             ),
-      //             Row(
-      //               mainAxisSize: MainAxisSize.max,
-      //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //               children: [
-      //                 // SizedBox(width: 10),
-      //                 ElevatedButton(
-      //                     onPressed: () {}, child: const Text("Save")),
-      //                 // SizedBox(width: 10),
-      //                 ElevatedButton(
-      //                     onPressed: () => Navigator.pop(context),
-      //                     child: const Text("Edit")),
-      //                 // SizedBox(width: 10),
-
-      //                 // SizedBox(width: 10),
-      //               ],
-      //             ),
-      //           ],
-      //         ));
-      //       },
-      //     );
-      //   },
-
-      //   tooltip: 'Show me the value!',
-      //   child: const Icon(Icons.text_fields),
-      // ),
     );
   }
 }
