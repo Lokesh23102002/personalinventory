@@ -223,6 +223,7 @@ class _ItemdescriptioncardState extends State<Itemdescriptioncard> {
   }
 }
 
+// below code is for the main body which contains the cards of the items
 class mainbody extends StatelessWidget {
   const mainbody({super.key, required this.sstate});
   final VoidCallback sstate;
