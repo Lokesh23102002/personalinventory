@@ -126,9 +126,11 @@ class Itemdescriptioncard extends StatefulWidget {
     super.key,
     required this.item,
     required this.sstate,
+    required this.refresh,
   });
 
   final VoidCallback sstate;
+  final VoidCallback refresh;
   InventoryItem item;
 
   @override
@@ -217,6 +219,7 @@ class _ItemdescriptioncardState extends State<Itemdescriptioncard> {
                         setState(() {
                           widget.item = toupdate;
                         });
+                        widget.refresh();
                       },
                       child: widget.item.givenAway == 0
                           ? const Text("Give")
@@ -241,35 +244,42 @@ class _ItemdescriptioncardState extends State<Itemdescriptioncard> {
 }
 
 // below code is for the main body which contains the cards of the items
-class mainbody extends StatelessWidget {
+class mainbody extends StatefulWidget {
   const mainbody({super.key, required this.sstate});
   final VoidCallback sstate;
+  @override
+  State<mainbody> createState() => _mainbodyState();
+}
+
+class _mainbodyState extends State<mainbody> {
+  List<InventoryItem> items_retrived = [];
+  Future refresh() async {
+    var result = await DatabaseHelper.retrieveItems();
+    items_retrived = result;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: DatabaseHelper.retrieveItems(),
       builder: ((context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
+          items_retrived = snapshot.data as List<InventoryItem>;
           return ListView.builder(
               itemBuilder: (context, index) {
                 dynamic x = Itemdescriptioncard(
-                    item: snapshot.data?[index] ??
-                        InventoryItem(
-                            name: "name",
-                            // description: "description",
-                            category: "category",
-                            image: "assets/Sign_B21EE035.jpg",
-                            givenAway: 1),
-                    sstate: sstate);
+                    item: items_retrived[index],
+                    sstate: widget.sstate,
+                    refresh: refresh);
                 // Create an instance of the ScrollBar class
                 // Use the instance to access the 'v' variable
 
-                if (snapshot.data?[index].category == state) {
+                if (items_retrived[index].category == state) {
                   return x;
                 }
                 return SizedBox();
               },
-              itemCount: snapshot.data?.length ?? 2);
+              itemCount: items_retrived.length);
         } else {
           return const Center(child: CircularProgressIndicator());
         }
