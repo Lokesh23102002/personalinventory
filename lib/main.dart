@@ -255,6 +255,7 @@ class _mainbodyState extends State<mainbody> {
   List<InventoryItem> items_retrived = [];
   Future refresh() async {
     var result = await DatabaseHelper.retrieveItems();
+    result.sort((a, b) => b.givenAway.compareTo(a.givenAway));
     items_retrived = result;
   }
 
@@ -265,6 +266,7 @@ class _mainbodyState extends State<mainbody> {
       builder: ((context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           items_retrived = snapshot.data as List<InventoryItem>;
+          items_retrived.sort((a, b) => b.givenAway.compareTo(a.givenAway));
           return ListView.builder(
               itemBuilder: (context, index) {
                 dynamic x = Itemdescriptioncard(
