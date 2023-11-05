@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => cash(), maintainState: false),
+                    builder: (context) => Cash(), maintainState: false),
               );
             }
           }),
